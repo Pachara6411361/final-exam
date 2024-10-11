@@ -1,14 +1,14 @@
-'use client';  // Ensure this component is a Client Component
+'use client';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box } from '@mui/material';
-import { useRouter } from 'next/navigation';  // Import the router
+import { useRouter } from 'next/navigation';  // For client-side navigation
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState([]);
   const [error, setError] = useState(null);
-  const router = useRouter();  // Used for navigation
+  const router = useRouter();  // Use router to navigate
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -34,9 +34,8 @@ export default function CustomerList() {
 
   return (
     <>
-      {/* Add Customer Button */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-        <Button variant="contained" color="primary" onClick={() => router.push('customer/add')}>
+        <Button variant="contained" color="primary" onClick={() => router.push('/customer/add')}>
           Add Customer
         </Button>
       </Box>
@@ -67,7 +66,8 @@ export default function CustomerList() {
                   <TableCell>{customer.memberNumber}</TableCell>
                   <TableCell>{customer.interests}</TableCell>
                   <TableCell>
-                    <Button href={`/customer/edit/${customer._id}`}>Edit</Button>
+                    {/* Link to customer details */}
+                    <Button onClick={() => router.push(`/customer/${customer._id}`)}>View</Button>
                     <Button onClick={() => handleDelete(customer._id)}>Delete</Button>
                   </TableCell>
                 </TableRow>

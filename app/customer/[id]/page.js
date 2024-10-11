@@ -32,11 +32,16 @@ export default function CustomerDetails({ params }) {
     return <Typography>Loading...</Typography>;
   }
 
+  // Handle date parsing safely
+  const formattedDateOfBirth = new Date(customer.dateOfBirth).toLocaleDateString() !== 'Invalid Date' 
+    ? new Date(customer.dateOfBirth).toLocaleDateString()
+    : 'Invalid Date';
+
   return (
     <Box>
       <Typography variant="h4">Customer Details</Typography>
       <Typography variant="h6">Name: {customer.name}</Typography>
-      <Typography>Date of Birth: {new Date(customer.dateOfBirth).toLocaleDateString()}</Typography>
+      <Typography>Date of Birth: {formattedDateOfBirth}</Typography>
       <Typography>Member Number: {customer.memberNumber}</Typography>
       <Typography>Interests: {customer.interests}</Typography>
 

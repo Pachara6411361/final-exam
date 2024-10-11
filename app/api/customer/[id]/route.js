@@ -34,3 +34,26 @@ export async function POST(request) {
     });
   }
 }
+
+export async function DELETE(request, { params }) {
+  const { id } = params;
+  try {
+    await connect();
+    const deletedCustomer = await Customer.findByIdAndDelete(id);
+    if (!deletedCustomer) {
+      return new Response(JSON.stringify({ message: 'Customer not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    return new Response(JSON.stringify({ message: 'Customer deleted successfully' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ message: 'Error deleting customer' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
